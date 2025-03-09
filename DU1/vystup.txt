@@ -1,0 +1,2 @@
+Obsah tohto suboru bude skopirovany z vstup.txt do vystup.txt
+Aj tento
