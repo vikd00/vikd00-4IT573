@@ -1,0 +1,13 @@
+{
+  "name": "du4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
+}
