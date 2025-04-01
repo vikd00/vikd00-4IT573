@@ -11,8 +11,10 @@
     <ul>
       <% for (const todo of todos) { %>
       <li>
-        <a href="/todos/<%= todo.id %>"><%= todo.title %></a> - <% if (todo.done)
-        { %>
+        <a href="/todos/<%= todo.id %>">
+          <%= todo.title %> [<%= todo.priority %>]
+        </a>
+        - <% if (todo.done) { %>
         <a href="/todos/<%= todo.id %>/toggle">dokončené</a>
         <a href="/todos/<%= todo.id %>/remove">odstrániť</a>
         <% } else { %>
@@ -24,6 +26,11 @@
 
     <form method="post" action="/todos">
       <input name="title" required placeholder="Zadajte novú úlohu" />
+      <select name="priority">
+        <option value="<%= priorities.LOW %>">Nízka</option>
+        <option value="<%= priorities.NORMAL %>" selected>Normálna</option>
+        <option value="<%= priorities.HIGH %>">Vysoká</option>
+      </select>
       <button type="submit">Pridať úlohu</button>
     </form>
   </body>

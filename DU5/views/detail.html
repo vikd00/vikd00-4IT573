@@ -11,6 +11,7 @@
     <div>
       <h2><%= todo.title %></h2>
       <p>Stav: <%= todo.done ? 'Dokončené' : 'Nedokončené' %></p>
+      <p>Priorita: <span><%= todo.priority %></span></p>
 
       <div>
         <a href="/todos/<%= todo.id %>/toggle"
@@ -24,10 +25,23 @@
       </div>
 
       <div style="margin-top: 20px">
-        <h3>Upraviť názov</h3>
+        <h3>Upraviť úlohu</h3>
         <form method="post" action="/todos/<%= todo.id %>/update">
-          <input name="title" required value="<%= todo.title %>" />
-          <button type="submit">Uložiť zmeny</button>
+          <div>
+            <label for="title">Názov:</label>
+            <input name="title" id="title" required value="<%= todo.title %>" />
+          </div>
+          <div style="margin-top: 10px;">
+            <label for="priority">Priorita:</label>
+            <select name="priority" id="priority">
+              <option value="<%= priorities.LOW %>" <%= todo.priority === priorities.LOW ? 'selected' : '' %>>Nízka</option>
+              <option value="<%= priorities.NORMAL %>" <%= todo.priority === priorities.NORMAL ? 'selected' : '' %>>Normálna</option>
+              <option value="<%= priorities.HIGH %>" <%= todo.priority === priorities.HIGH ? 'selected' : '' %>>Vysoká</option>
+            </select>
+          </div>
+          <div style="margin-top: 10px;">
+            <button type="submit">Uložiť zmeny</button>
+          </div>
         </form>
       </div>
     </div>

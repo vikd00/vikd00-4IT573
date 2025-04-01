@@ -4,7 +4,7 @@ import { logger } from "hono/logger";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { renderFile } from "ejs";
 import { drizzle } from "drizzle-orm/libsql";
-import { todosTable } from "./src/schema.js";
+import { todosTable, Priority } from "./src/schema.js";
 import { eq } from "drizzle-orm";
 
 const db = drizzle({
@@ -24,6 +24,7 @@ app.get("/", async (c) => {
   const index = await renderFile("views/index.html", {
     title: "My todo app",
     todos,
+    priorities: Priority,
   });
 
   return c.html(index);
@@ -36,6 +37,7 @@ app.post("/todos", async (c) => {
   await db.insert(todosTable).values({
     title: form.get("title"),
     done: false,
+    priority: form.get("priority") || Priority.NORMAL,
   });
 
   return c.redirect("/");
@@ -51,12 +53,13 @@ app.get("/todos/:id", async (c) => {
 
   const detail = await renderFile("views/detail.html", {
     todo,
+    priorities: Priority,
   });
 
   return c.html(detail);
 });
 
-// Endpoint pre aktualizáciu názvu todo úlohy
+// Endpoint pre aktualizáciu názvu a priority todo úlohy
 app.post("/todos/:id/update", async (c) => {
   const id = Number(c.req.param("id"));
 
@@ -68,7 +71,10 @@ app.post("/todos/:id/update", async (c) => {
 
   await db
     .update(todosTable)
-    .set({ title: form.get("title") })
+    .set({
+      title: form.get("title"),
+      priority: form.get("priority") || todo.priority,
+    })
     .where(eq(todosTable.id, id));
 
   return c.redirect(c.req.header("Referer"));
