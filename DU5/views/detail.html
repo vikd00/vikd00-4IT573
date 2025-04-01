@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail úlohy</title>
+  </head>
+  <body>
+    <h1>Detail úlohy</h1>
+
+    <div>
+      <h2><%= todo.title %></h2>
+      <p>Stav: <%= todo.done ? 'Dokončené' : 'Nedokončené' %></p>
+
+      <div>
+        <a href="/todos/<%= todo.id %>/toggle"
+          ><%= todo.done ? 'Označiť ako nedokončené' : 'Označiť ako dokončené'
+          %></a
+        >
+        |
+        <a href="/todos/<%= todo.id %>/remove">Odstrániť</a>
+        |
+        <a href="/">Späť na zoznam</a>
+      </div>
+
+      <div style="margin-top: 20px">
+        <h3>Upraviť názov</h3>
+        <form method="post" action="/todos/<%= todo.id %>/update">
+          <input name="title" required value="<%= todo.title %>" />
+          <button type="submit">Uložiť zmeny</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

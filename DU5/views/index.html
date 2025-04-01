@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoznam úloh</title>
+  </head>
+  <body>
+    <h1><%= title.toUpperCase() %></h1>
+
+    <ul>
+      <% for (const todo of todos) { %>
+      <li>
+        <a href="/todos/<%= todo.id %>"><%= todo.title %></a> - <% if (todo.done)
+        { %>
+        <a href="/todos/<%= todo.id %>/toggle">dokončené</a>
+        <a href="/todos/<%= todo.id %>/remove">odstrániť</a>
+        <% } else { %>
+        <a href="/todos/<%= todo.id %>/toggle">nedokončené</a>
+        <% } %>
+      </li>
+      <% } %>
+    </ul>
+
+    <form method="post" action="/todos">
+      <input name="title" required placeholder="Zadajte novú úlohu" />
+      <button type="submit">Pridať úlohu</button>
+    </form>
+  </body>
+</html>
