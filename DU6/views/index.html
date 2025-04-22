@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoznam úloh</title>
+  </head>
+  <body>
+    <h1><%= title.toUpperCase() %></h1>
+
+    <div id="todos"><%- include('_todos.html') %></div>
+
+    <form method="post" action="/todos">
+      <input name="title" required placeholder="Zadajte novú úlohu" />
+      <select name="priority">
+        <option value="<%= priorities.LOW %>">Nízka</option>
+        <option value="<%= priorities.NORMAL %>" selected>Normálna</option>
+        <option value="<%= priorities.HIGH %>">Vysoká</option>
+      </select>
+      <button type="submit">Pridať úlohu</button>
+    </form>
+
+    <script>
+      const ws = new WebSocket(`ws://${window.location.host}/ws`);
+
+      ws.addEventListener("message", (evt) => {
+        const { type, html } = JSON.parse(evt.data);
+
+        if (type === "todos") {
+          const el = document.getElementById("todos");
+          el.innerHTML = html;
+        }
+      });
+    </script>
+  </body>
+</html>
