@@ -1,0 +1,25 @@
+{
+  "name": "todo_app-vikd00",
+  "version": "1.0.1",
+  "description": "TODO APP",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "test": "ava",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate"
+  },
+  "author": "David Vikor",
+  "license": "MIT",
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@hono/node-ws": "^1.1.1",
+    "@libsql/client": "^0.15.2",
+    "ava": "^6.2.0",
+    "drizzle-kit": "^0.30.6",
+    "drizzle-orm": "^0.41.0",
+    "ejs": "^3.1.10",
+    "hono": "^4.7.4"
+  }
+}
