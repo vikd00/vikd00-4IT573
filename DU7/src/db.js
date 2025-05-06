@@ -14,6 +14,8 @@ export async function runMigrations() {
   await migrate(db, { migrationsFolder: "drizzle" });
 }
 
+await migrate(db, { migrationsFolder: "drizzle" })
+
 // Získanie todo podľa ID
 export async function getTodoById(id) {
   return await db
